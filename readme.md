@@ -45,7 +45,7 @@ const todoFacadeConfig: FacadeConfig = {
 };
 ```
 
-The tests in this package contain a [demonstration of how to implement an Express router for the functions in this facade](./utils/express).
+The tests in this package contain a [demonstration of how to implement an Express router for the functions in this facade](./src/utils/express).
 
 ### Construct the Facade
 
