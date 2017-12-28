@@ -1,0 +1,14 @@
+import { Request, Response } from 'express';
+import { OK } from 'http-status-codes';
+import catchErrors from './catchErrors';
+import FacadeConfig from './FacadeConfig';
+
+export default (config: FacadeConfig) => {
+  return catchErrors(async (req: Request, res: Response) => {
+    const { entity } = await config.repo.patchEntity({
+      id: { id: req.body.id },
+      patch: req.body,
+    });
+    res.status(OK).json(entity);
+  });
+};
