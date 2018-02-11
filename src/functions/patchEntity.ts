@@ -1,12 +1,15 @@
 import MissingEntityError from '@js-entity-repos/core/dist/errors/MissingEntityError';
 import PatchEntity from '@js-entity-repos/core/dist/signatures/PatchEntity';
+import Entity from '@js-entity-repos/core/dist/types/Entity';
 import { NOT_FOUND } from 'http-status-codes';
-import Config from '../Config';
+import FacadeConfig from '../FacadeConfig';
 
-export default <Id, Entity extends Id>(config: Config<Id, Entity>): PatchEntity<Id, Entity> => {
-  return async ({ id, patch }) => {
-    const data = config.constructDocument(id, patch);
-    const response = await config.axios.patch('', data).catch((err) => {
+export default <E extends Entity>(config: FacadeConfig<E>): PatchEntity<E> => {
+  return async ({ id, patch, filter = {} }) => {
+    const data = config.constructDocument({ ...patch as any, id });
+    const constructedFilter = config.constructFilter(filter);
+    const params = { filter: JSON.stringify(constructedFilter) };
+    const response = await config.axios.patch(`/${id}`, data, { params }).catch((err) => {
       if (err.response.status === NOT_FOUND) {
         throw new MissingEntityError(config.entityName, id);
       }

@@ -1,12 +1,14 @@
 import MissingEntityError from '@js-entity-repos/core/dist/errors/MissingEntityError';
 import GetEntity from '@js-entity-repos/core/dist/signatures/GetEntity';
+import Entity from '@js-entity-repos/core/dist/types/Entity';
 import { NOT_FOUND } from 'http-status-codes';
-import Config from '../Config';
+import FacadeConfig from '../FacadeConfig';
 
-export default <Id, Entity extends Id>(config: Config<Id, Entity>): GetEntity<Id, Entity> => {
-  return async ({ id }) => {
-    const params = { id: JSON.stringify(id) };
-    const response = await config.axios.get('', { params }).catch((err) => {
+export default <E extends Entity>(config: FacadeConfig<E>): GetEntity<E> => {
+  return async ({ id, filter = {} }) => {
+    const constructedFilter = config.constructFilter(filter);
+    const params = { filter: JSON.stringify(constructedFilter) };
+    const response = await config.axios.get(`/${id}`, { params }).catch((err) => {
       if (err.response.status === NOT_FOUND) {
         throw new MissingEntityError(config.entityName, id);
       }
