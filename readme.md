@@ -26,7 +26,7 @@ export interface TodoEntity extends Entity {
 import FactoryConfig from '@js-entity-repos/axios/dist/FactoryConfig';
 import axios from 'axios';
 
-const todoFactoryConfig: FactoryConfig = {
+const todoFactoryConfig: FactoryConfig<TodoEntity> = {
   axios: axios.create({
     baseURL: `http://localhost:80/api/todos`,
   }),
