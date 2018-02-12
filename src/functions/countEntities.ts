@@ -1,9 +1,11 @@
 import CountEntities from '@js-entity-repos/core/dist/signatures/CountEntities';
-import Config from '../Config';
+import Entity from '@js-entity-repos/core/dist/types/Entity';
+import FacadeConfig from '../FacadeConfig';
 
-export default <Id, Entity extends Id>(config: Config<Id, Entity>): CountEntities<Entity> => {
-  return async ({ filter }) => {
-    const params = { filter: JSON.stringify(filter) };
+export default <E extends Entity>(config: FacadeConfig<E>): CountEntities<E> => {
+  return async ({ filter = {} }) => {
+    const constructedFilter = config.constructFilter(filter);
+    const params = { filter: JSON.stringify(constructedFilter) };
     const response = await Promise.resolve(config.axios.get('/count', { params }));
     return { count: response.data };
   };

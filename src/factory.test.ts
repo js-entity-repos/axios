@@ -2,11 +2,11 @@ import * as sourceMapSupport from 'source-map-support';
 sourceMapSupport.install();
 
 import facadeTest from '@js-entity-repos/core/dist/tests';
-import { TestEntity, TestId } from '@js-entity-repos/core/dist/tests/utils/testEntity';
+import { TestEntity } from '@js-entity-repos/core/dist/tests/utils/testEntity';
 import axios from 'axios';
 import { config } from 'dotenv';
 import 'mocha'; // tslint:disable-line:no-import-side-effect
-import facade from './facade';
+import factory from './factory';
 import createTestServer from './utils/createTestServer';
 config();
 
@@ -27,15 +27,13 @@ before(async () => {
 });
 
 after(async () => {
-  const app = await testServer;
-  app.close();
+  const server = await testServer;
+  server.close();
 });
 
-facadeTest(facade<TestId, TestEntity>({
+facadeTest(factory<TestEntity>({
   axios: axios.create({
     baseURL: `http://localhost:${testServerPort}${testServerRoute}`,
   }),
-  constructDocument: (id, patch) => ({ ...patch, ...id }),
-  constructEntity: (document) => document,
   entityName: 'Test Entity',
 }));
