@@ -9,6 +9,8 @@
     1. [Construct the facade](#construct-the-facade).
     1. [Use the facade](https://github.com/js-entity-repos/core/blob/master/docs/facade.md).
 
+Note that you'll probably want to use this with [the Express implementation of js-entity-repos](https://github.com/js-entity-repos/express).
+
 ### Entity Interface
 
 ```ts
@@ -50,8 +52,6 @@ const todoFactoryConfig: FactoryConfig<TodoEntity> = {
   entityName: 'todo',
 };
 ```
-
-The tests in this package contain a [demonstration of how to implement an Express router for the functions in this facade](./src/utils/expressPresenter).
 
 ### Construct the Facade
 
