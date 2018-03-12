@@ -3,11 +3,11 @@ sourceMapSupport.install();
 
 import facadeTest from '@js-entity-repos/core/dist/tests';
 import { TestEntity } from '@js-entity-repos/core/dist/tests/utils/testEntity';
+import createTestServer from '@js-entity-repos/express/dist/utils/createTestServer';
 import axios from 'axios';
 import { config } from 'dotenv';
 import 'mocha'; // tslint:disable-line:no-import-side-effect
 import factory from './factory';
-import createTestServer from './utils/createTestServer';
 config();
 
 const defaultServerPort = 1337;
