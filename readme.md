@@ -5,7 +5,6 @@
 1. Install it with `npm i @js-entity-repos/axios`.
 1. For each entity you will need to do the following.
     1. [Create an Entity interface](#entity-interface).
-    1. [Create a factory config](#factory-config).
     1. [Construct the facade](#construct-the-facade).
     1. [Use the facade](https://github.com/js-entity-repos/core/blob/master/docs/facade.md).
 
@@ -22,13 +21,13 @@ export interface TodoEntity extends Entity {
 }
 ```
 
-### Factory Config
+### Construct the Facade
 
 ```ts
-import FactoryConfig from '@js-entity-repos/axios/dist/FactoryConfig';
+import factory from '@js-entity-repos/axios/dist/factory';
 import axios from 'axios';
 
-const todoFactoryConfig: FactoryConfig<TodoEntity> = {
+const todosFacade = factory<TodoEntity>({
   axios: axios.create({
     baseURL: `http://localhost:80/api/todos`,
   }),
@@ -50,13 +49,5 @@ const todoFactoryConfig: FactoryConfig<TodoEntity> = {
   },
   defaultPaginationLimit: 100, // Optional property.
   entityName: 'todo',
-};
-```
-
-### Construct the Facade
-
-```ts
-import factory from '@js-entity-repos/axios/dist/factory';
-
-const todosFacade = factory(todoFactoryConfig);
+});
 ```

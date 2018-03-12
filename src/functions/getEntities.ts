@@ -22,9 +22,9 @@ export default <E extends Entity>(config: FacadeConfig<E>): GetEntities<E> => {
     };
     const response = await Promise.resolve(config.axios.get('', { params }));
 
-    const entities = response.data.entities.map(config.constructEntity);
-    const nextCursor = response.data.nextCursor;
-    const previousCursor = response.data.previousCursor;
+    const entities = response.data.map(config.constructEntity);
+    const nextCursor = response.headers['x-entities-next-cursor'];
+    const previousCursor = response.headers['x-entities-previous-cursor'];
 
     return { entities, nextCursor, previousCursor };
   };
