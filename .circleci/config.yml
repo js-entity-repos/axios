@@ -34,6 +34,9 @@ jobs:
           name: Linting Code
           command: npm run lint
       - run:
+          name: Running tests
+          command: npm run cover
+      - run:
           name: Checking Code Duplication
           command: npm run duplication -- --limit 15
       - deploy:
