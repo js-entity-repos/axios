@@ -25,7 +25,7 @@
     "check-coverage": true
   },
   "dependencies": {
-    "@js-entity-repos/core": "^7.1.0",
+    "@js-entity-repos/core": "^9.0.0",
     "axios": "^0.18.0",
     "http-status-codes": "^1.3.0",
     "lodash": "^4.17.4"
@@ -33,8 +33,8 @@
   "devDependencies": {
     "@ht2-labs/semantic-release": "1.0.31",
     "@ht2-labs/typescript-project": "1.0.9",
-    "@js-entity-repos/express": "5.0.0",
-    "@js-entity-repos/memory": "4.0.1",
+    "@js-entity-repos/express": "^5.0.0",
+    "@js-entity-repos/memory": "4.0.3",
     "@types/body-parser": "1.16.8",
     "@types/dotenv": "4.0.2",
     "@types/express": "4.11.1",

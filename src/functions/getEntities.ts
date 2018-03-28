@@ -26,9 +26,11 @@ export default <E extends Entity>(config: FacadeConfig<E>): GetEntities<E> => {
     const response = await Promise.resolve(config.axios.get('', { params }));
 
     const entities = response.data.map(config.constructEntity);
-    const nextCursor = response.headers['x-entities-next-cursor'];
-    const previousCursor = response.headers['x-entities-previous-cursor'];
+    const backwardCursor = response.headers['x-entities-backward-cursor'];
+    const forwardCursor = response.headers['x-entities-forward-cursor'];
+    const hasMoreBackward = response.headers['x-entities-has-more-backward'] === 'true';
+    const hasMoreForward = response.headers['x-entities-has-more-forward'] === 'true';
 
-    return { entities, nextCursor, previousCursor };
+    return { entities, forwardCursor, backwardCursor, hasMoreBackward, hasMoreForward };
   };
 };
