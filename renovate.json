@@ -1,5 +1,6 @@
 {
   "extends": [
-    "@ht2-labs:base"
+    "@ht2-labs:base",
+    ":preserveSemverRanges"
   ]
 }
