@@ -6,10 +6,11 @@ import FacadeConfig from '../FacadeConfig';
 
 export default <E extends Entity>(config: FacadeConfig<E>): ReplaceEntity<E> => {
   return async ({ id, entity, filter = {} }) => {
+    const connection = await config.axios();
     const data = config.constructDocument({ ...entity as any, id });
     const constructedFilter = config.constructFilter(filter);
     const params = { filter: JSON.stringify(constructedFilter) };
-    const response = await config.axios.put(`/${id}`, data, { params }).catch((err) => {
+    const response = await connection.put(`/${id}`, data, { params }).catch((err) => {
       if (err.response.status === NOT_FOUND) {
         throw new MissingEntityError(config.entityName, id);
       }

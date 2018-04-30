@@ -6,8 +6,9 @@ import FacadeConfig from '../FacadeConfig';
 
 export default <E extends Entity>(config: FacadeConfig<E>): CreateEntity<E> => {
   return async ({ id, entity }) => {
+    const connection = await config.axios();
     const data = config.constructDocument({ ...entity as any, id });
-    const response = await config.axios.post('', data).catch((err) => {
+    const response = await connection.post('', data).catch((err) => {
       if (err.response.status === CONFLICT) {
         throw new ConflictingEntityError(config.entityName, id);
       }

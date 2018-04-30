@@ -32,7 +32,7 @@ after(async () => {
 });
 
 facadeTest(factory<TestEntity>({
-  axios: axios.create({
+  axios: async () => axios.create({
     baseURL: `http://localhost:${testServerPort}${testServerRoute}`,
   }),
   entityName: 'Test Entity',
