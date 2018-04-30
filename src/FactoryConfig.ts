@@ -6,7 +6,7 @@ import { AxiosInstance } from 'axios';
 export type Document = any;
 
 export default interface FactoryConfig<E extends Entity> {
-  readonly axios: AxiosInstance;
+  readonly axios: () => Promise<AxiosInstance>;
   readonly constructDocument?: (patch: Partial<E>) => Document;
   readonly constructEntity?: (document: Document) => E;
   readonly constructFilter?: (filter: Filter<E>) => any;

@@ -4,8 +4,9 @@ import FacadeConfig from '../FacadeConfig';
 
 export default <E extends Entity>(config: FacadeConfig<E>): RemoveEntities<E> => {
   return async ({ filter = {} }) => {
+    const connection = await config.axios();
     const constructedFilter = config.constructFilter(filter);
     const params = { filter: JSON.stringify(constructedFilter) };
-    await Promise.resolve(config.axios.delete('', { params }));
+    await Promise.resolve(connection.delete('', { params }));
   };
 };

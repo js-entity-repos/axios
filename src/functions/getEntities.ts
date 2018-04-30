@@ -14,6 +14,7 @@ export default <E extends Entity>(config: FacadeConfig<E>): GetEntities<E> => {
   };
   const defaultSort = { id: asc } as Sort<E>;
   return async ({ filter = {}, sort = defaultSort, pagination = defaultPagination }) => {
+    const connection = await config.axios();
     const constructedFilter = config.constructFilter(filter);
     const constructedSort = config.constructSort(sort);
     const params = {
@@ -23,7 +24,7 @@ export default <E extends Entity>(config: FacadeConfig<E>): GetEntities<E> => {
       limit: pagination.limit,
       sort: JSON.stringify(constructedSort),
     };
-    const response = await Promise.resolve(config.axios.get('', { params }));
+    const response = await Promise.resolve(connection.get('', { params }));
 
     const entities = response.data.map(config.constructEntity);
     const backwardCursor = response.headers['x-entities-backward-cursor'];

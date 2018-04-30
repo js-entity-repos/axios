@@ -6,9 +6,10 @@ import FacadeConfig from '../FacadeConfig';
 
 export default <E extends Entity>(config: FacadeConfig<E>): GetEntity<E> => {
   return async ({ id, filter = {} }) => {
+    const connection = await config.axios();
     const constructedFilter = config.constructFilter(filter);
     const params = { filter: JSON.stringify(constructedFilter) };
-    const response = await config.axios.get(`/${id}`, { params }).catch((err) => {
+    const response = await connection.get(`/${id}`, { params }).catch((err) => {
       if (err.response.status === NOT_FOUND) {
         throw new MissingEntityError(config.entityName, id);
       }
