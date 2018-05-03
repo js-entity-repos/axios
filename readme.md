@@ -28,7 +28,7 @@ import factory from '@js-entity-repos/axios/dist/factory';
 import axios from 'axios';
 
 const todosFacade = factory<TodoEntity>({
-  axios: axios.create({
+  axios: async () => axios.create({
     baseURL: `http://localhost:80/api/todos`,
   }),
   constructDocument: (patch) => {
