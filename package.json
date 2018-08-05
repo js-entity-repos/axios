@@ -31,7 +31,7 @@
     "lodash": "4.17.10"
   },
   "devDependencies": {
-    "@ht2-labs/semantic-release": "1.1.8",
+    "@ht2-labs/semantic-release": "1.1.9",
     "@ht2-labs/typescript-project": "1.0.24",
     "@js-entity-repos/express": "6.1.1",
     "@js-entity-repos/memory": "4.3.4",
