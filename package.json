@@ -34,7 +34,7 @@
     "@ht2-labs/semantic-release": "1.1.76",
     "@ht2-labs/typescript-project": "1.1.0",
     "@js-entity-repos/express": "6.1.1",
-    "@js-entity-repos/memory": "4.3.7",
+    "@js-entity-repos/memory": "4.3.8",
     "@types/body-parser": "1.17.0",
     "@types/dotenv": "4.0.3",
     "@types/express": "4.16.1",
